@@ -1,8 +1,7 @@
-function timelineItem(theme, ownerState) {
-  const { borders } = theme;
-  const { lastItem } = ownerState;
+// styles.js
 
-  const { borderWidth, borderColor } = borders;
+function timelineItem(theme, ownerState) {
+  const { lastItem } = ownerState;
 
   return {
     "&:after": {
@@ -11,7 +10,8 @@ function timelineItem(theme, ownerState) {
       top: "10%",
       left: "14px",
       height: "100%",
-      borderRight: `${borderWidth[2]} solid ${borderColor}`,
+      // Remove the borderRight property
+      // borderRight: `${borderWidth[2]} solid ${borderColor}`,
     },
   };
 }
