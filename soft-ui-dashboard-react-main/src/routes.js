@@ -44,6 +44,7 @@ import RTL from "layouts/rtl";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
+import PlaidLink from "layouts/billing/components/PaymentMethod/plaid";
 
 // Soft UI Dashboard React icons
 import Shop from "examples/Icons/Shop";
@@ -127,6 +128,15 @@ const routes = [
     route: "/authentication/sign-up",
     icon: <SpaceShip size="12px" />,
     component: <SignUp />,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    route: "/plaid",
+    icon: <SpaceShip size="12px" />,
+    component: <PlaidLink/>,
     noCollapse: true,
   },
 ];
