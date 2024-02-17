@@ -42,6 +42,8 @@ import OrderOverview from "layouts/dashboard/components/OrderOverview";
 // Data
 import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData";
+import BalanceDisplay from './components/BalanceWidget';
+
 
 function Dashboard() {
   const { size } = typography;
@@ -94,7 +96,7 @@ function Dashboard() {
         <SoftBox mb={3}>
           <Grid container spacing={3}>
             <Grid item xs={12} lg={7}>
-              <BuildByDevelopers />
+            <BalanceDisplay moneyAmount={1000} tokenAmount={500} tokensEarnedPerDay={1.3} />
             </Grid>
             <Grid item xs={12} lg={5}>
               <WorkWithTheRockets />
