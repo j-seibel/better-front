@@ -22,7 +22,7 @@ const PlaidLink = () => {
     generateToken();
   }, []);
 
-  return null ? <Link linkToken={linkToken} /> : <button>Hello</button>;
+  return linkToken ? <Link linkToken={linkToken} /> : null;
 };
 
 const Link = ({ linkToken }) => {
