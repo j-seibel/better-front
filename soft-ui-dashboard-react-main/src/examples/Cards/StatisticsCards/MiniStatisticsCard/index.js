@@ -63,7 +63,7 @@ function MiniStatisticsCard({ bgColor, title, count, percentage, icon, direction
                   {title.text}
                 </SoftTypography>
                 <SoftTypography
-                  variant="h5"
+                  variant="h6"
                   fontWeight="bold"
                   color={bgColor === "white" ? "dark" : "white"}
                 >

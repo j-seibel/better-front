@@ -16,6 +16,7 @@ Coded by www.creative-tim.com
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Icon from "@mui/material/Icon";
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
@@ -54,37 +55,38 @@ function Dashboard() {
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} xl={3}>
               <MiniStatisticsCard
-                title={{ text: "today's money" }}
-                count="$53,000"
-                percentage={{ color: "success", text: "+55%" }}
-                icon={{ color: "info", component: "paid" }}
+                title={{ text: "Superbowl" }}
+                count="2/12/24"
+                percentage= {{ color:"error", text:"7pm"}}
+                icon={{ color: "error", component: <LocalFireDepartmentIcon/> }}
+                direction="left"
               />
             </Grid>
             <Grid item xs={12} sm={6} xl={3}>
               <MiniStatisticsCard
-                title={{ text: "today's users" }}
-                count="2,300"
-                percentage={{ color: "success", text: "+3%" }}
-                icon={{ color: "info", component: "public" }}
+                title={{ text: "World Series" }}
+                count="7/15/24"
+                percentage= {{ color:"error", text:"11am"}}
+                icon={{ color: "error", component: <LocalFireDepartmentIcon/> }}
+                direction="left"
               />
             </Grid>
             <Grid item xs={12} sm={6} xl={3}>
               <MiniStatisticsCard
-                title={{ text: "new clients" }}
-                count="+3,462"
-                percentage={{ color: "error", text: "-2%" }}
-                icon={{ color: "info", component: "emoji_events" }}
+                title={{ text: "SPORTS!" }}
+                count="2/18/24"
+                percentage= {{ color:"error", text:"11am"}}
+                icon={{ color: "error", component: <LocalFireDepartmentIcon/> }}
+                direction="left"
               />
             </Grid>
             <Grid item xs={12} sm={6} xl={3}>
               <MiniStatisticsCard
-                title={{ text: "sales" }}
-                count="$103,430"
-                percentage={{ color: "success", text: "+5%" }}
-                icon={{
-                  color: "info",
-                  component: "shopping_cart",
-                }}
+                title={{ text: "Olympics" }}
+                count="6/24/24"
+                percentage= {{ color:"error", text:"3pm"}}
+                icon={{ color: "error", component: <LocalFireDepartmentIcon/>,}}
+                direction="left"
               />
             </Grid>
           </Grid>
