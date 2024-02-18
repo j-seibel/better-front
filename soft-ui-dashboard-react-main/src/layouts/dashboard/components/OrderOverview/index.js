@@ -17,6 +17,7 @@ Coded by www.creative-tim.com
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
 import PropTypes from 'prop-types';
+import "./styles.css";
 
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
@@ -95,7 +96,7 @@ SportBetTimeline.propTypes = {
 
 function OrdersOverview() {
   return (
-    <Card className="h-100">
+    <Card className="h-100, outercard" >
       <SoftBox pt={3} px={3}>
         <SoftTypography variant="h6" fontWeight="medium">
           Current Bets

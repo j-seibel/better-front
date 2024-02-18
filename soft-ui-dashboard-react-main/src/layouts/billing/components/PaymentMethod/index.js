@@ -31,6 +31,9 @@ import borders from "assets/theme/base/borders";
 import masterCardLogo from "assets/images/logos/mastercard.png";
 import visaLogo from "assets/images/logos/visa.png";
 
+
+
+
 function PaymentMethod() {
   const { borderWidth, borderColor } = borders;
 

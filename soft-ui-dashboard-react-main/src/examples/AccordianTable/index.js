@@ -26,6 +26,12 @@ import { Table as MuiTable } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
+
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import BetData from "../AccordianTable/BetData"
 
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
@@ -80,33 +86,34 @@ function Table({ columns, rows }) {
 
   const renderRows = rows.map((row, key) => {
     const rowKey = `row-${key}`;
-
-    const tableRow = columns.map(({ name, align }) => {
+  
+    const accordionContent = columns.map(({ name, align }) => {
       let template;
-
+  
       if (Array.isArray(row[name])) {
         template = (
           <SoftBox
             key={uuidv4()}
-            component="td"
+            component="div"
             p={1}
+            textAlign={align}
             borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
           >
-            <SoftBox display="flex" alignItems="center" py={0.5} px={1}>
-              <SoftBox mr={2}>
-                <SoftAvatar src={row[name][0]} name={row[name][1]} variant="rounded" size="sm" />
-              </SoftBox>
-              <SoftTypography variant="button" fontWeight="bold" sx={{ width: "max-content" }}>
-                {row[name][1]}
-              </SoftTypography>
-            </SoftBox>
+            <SoftTypography
+              variant="button"
+              fontWeight="regular"
+              color="black"
+              sx={{ display: "inline-block", width: "max-content" }}
+            >
+              {row[name]}
+            </SoftTypography>
           </SoftBox>
         );
       } else {
         template = (
           <SoftBox
             key={uuidv4()}
-            component="td"
+            component="div"
             p={1}
             textAlign={align}
             borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
@@ -122,12 +129,47 @@ function Table({ columns, rows }) {
           </SoftBox>
         );
       }
-
       return template;
     });
-
-    return <TableRow key={rowKey}>{tableRow}</TableRow>;
+  
+    // Ensure accordionContent has exactly four columns
+    while (accordionContent.length < 4) {
+      accordionContent.push(
+        <SoftBox key={uuidv4()} component="div" p={1} textAlign="left">
+          {/* Empty column */}
+        </SoftBox>
+      );
+    }
+  
+    const tableRow = (
+      <TableRow key={rowKey}>
+        <TableCell colSpan={columns.length}>
+          <Accordion key={rowKey}>
+            <AccordionSummary>
+              <SoftBox sx={{ display: 'flex', width: '100%' }}>
+                {accordionContent.map((column, index) => (
+                  <div key={index} style={{ flex: 1 }}>
+                    {column}
+                  </div>
+                ))}
+              </SoftBox>
+            </AccordionSummary>
+            <AccordionDetails>
+              Skadoosh
+            </AccordionDetails>
+          </Accordion>
+        </TableCell>
+      </TableRow>
+    );
+  
+    return tableRow;
   });
+  
+  
+  
+  
+  
+  
 
   return useMemo(
     () => (
