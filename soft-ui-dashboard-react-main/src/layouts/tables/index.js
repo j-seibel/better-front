@@ -24,7 +24,7 @@ import SoftTypography from "components/SoftTypography";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-import Table from "examples/AccordianTable";
+import Table from "examples/AccordianTable/index";
 
 // Data
 import authorsTableData from "layouts/tables/data/authorsTableData";
