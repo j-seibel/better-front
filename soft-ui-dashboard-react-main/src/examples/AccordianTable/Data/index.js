@@ -21,11 +21,23 @@ function Bets({ betType, homeOdds, awayOdds, teams }) {
   
     // State to manage the bet amount
     const [betAmount, setBetAmount] = useState(0);
+    // State to manage the selected team
+    const [selectedTeam, setSelectedTeam] = useState(null);
   
     // Function to handle the change in bet amount input
     const handleBetAmountChange = (event) => {
       const amount = parseInt(event.target.value);
       setBetAmount(isNaN(amount) ? 0 : amount); // Ensure betAmount is a number
+    };
+  
+    // Function to handle selecting the home team
+    const selectHomeTeam = () => {
+      setSelectedTeam('home');
+    };
+  
+    // Function to handle selecting the away team
+    const selectAwayTeam = () => {
+      setSelectedTeam('away');
     };
   
     // Function to handle placing the bet
@@ -34,58 +46,53 @@ function Bets({ betType, homeOdds, awayOdds, teams }) {
       const validBetAmount = Math.max(0, betAmount);
       // Here you can handle the logic for placing the bet with the validBetAmount
       console.log('Placing bet with amount:', validBetAmount);
-
+  
       const fetchSportOdds = async () => {
         const response = await fetch('http://127.0.0.1:5000/add_bet', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({ "token_amount":validBetAmount, competitors: homeTeam + ' .vs ' + awayTeam  }), 
-          });
-      
+        });
+        
         const data = await response.json();
         console.log(data);
         return data;
       };
-
+  
       fetchSportOdds()
+    };
+  
+    // Function to format odds to two decimal places
+    const formatOdds = (odds) => {
+      return parseFloat(odds).toFixed(2);
     };
   
     return (
       <div style={{ display: 'flex', gap: '20px' }}>
-        <Card>
-          <CardContent>
+        <Card onClick={selectHomeTeam} style={{ backgroundColor: selectedTeam === 'home' ? 'lightblue' : 'inherit', cursor: 'pointer', paddingBottom: 0, flex: 1 }}>
+          <CardContent >
             <Typography variant="h5" component="h2">
-              Bet Type
+              Home Team
             </Typography>
             <Typography variant="body2" component="p">
-              {betType}
+              {homeTeam} : {formatOdds(homeOdds)}
             </Typography>
           </CardContent>
         </Card>
-        <Card>
-          <CardContent>
+        <Card onClick={selectAwayTeam} style={{ backgroundColor: selectedTeam === 'away' ? 'lightblue' : 'inherit', cursor: 'pointer', paddingBottom: 0 ,flex: 1 }}>
+          <CardContent >
             <Typography variant="h5" component="h2">
-              Home Team Odds
+              Away Team
             </Typography>
             <Typography variant="body2" component="p">
-              {homeTeam} : {homeOdds}
+              {awayTeam} : {formatOdds(awayOdds)}
             </Typography>
           </CardContent>
         </Card>
-        <Card item xs={3}>
-          <CardContent>
-            <Typography variant="h5" component="h2">
-              Away Team Odds
-            </Typography>
-            <Typography variant="body2" component="p">
-              {awayTeam} : {awayOdds}
-            </Typography>
-          </CardContent>
-        </Card>
-        <Card item xs="3">
-          <CardContent>
+        <Card style={{ flex: 1 }}>
+          <CardContent style={{ paddingBottom: 0 }}>
             <Typography variant="h5" component="h2">
               Place Bet
             </Typography>
