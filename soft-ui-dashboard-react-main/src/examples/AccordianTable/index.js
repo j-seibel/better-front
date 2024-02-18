@@ -31,7 +31,7 @@ import TableCell from "@mui/material/TableCell";
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
-import BetData from "../AccordianTable/BetData"
+import BetData from "examples/AccordianTable/Data"
 
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
@@ -43,7 +43,7 @@ import colors from "assets/theme/base/colors";
 import typography from "assets/theme/base/typography";
 import borders from "assets/theme/base/borders";
 
-function Table({ columns, rows }) {
+function AccordianTable({ columns, rows,  }) {
   const { light } = colors;
   const { size, fontWeightBold } = typography;
   const { borderWidth } = borders;
@@ -84,12 +84,12 @@ function Table({ columns, rows }) {
     );
   });
 
-  const renderRows = rows.map((row, key) => {
-    const rowKey = `row-${key}`;
-  
+  const renderRows = rows.map((row, index) => {
+    const rowKey = `row-${index}`;
+    
     const accordionContent = columns.map(({ name, align }) => {
       let template;
-  
+    
       if (Array.isArray(row[name])) {
         template = (
           <SoftBox
@@ -131,7 +131,7 @@ function Table({ columns, rows }) {
       }
       return template;
     });
-  
+    
     // Ensure accordionContent has exactly four columns
     while (accordionContent.length < 4) {
       accordionContent.push(
@@ -140,35 +140,30 @@ function Table({ columns, rows }) {
         </SoftBox>
       );
     }
-  
+    
     const tableRow = (
       <TableRow key={rowKey}>
         <TableCell colSpan={columns.length}>
           <Accordion key={rowKey}>
             <AccordionSummary>
               <SoftBox sx={{ display: 'flex', width: '100%' }}>
-                {accordionContent.map((column, index) => (
-                  <div key={index} style={{ flex: 1 }}>
+                {accordionContent.map((column, columnIndex) => (
+                  <div key={columnIndex} style={{ flex: 1 }}>
                     {column}
                   </div>
                 ))}
               </SoftBox>
             </AccordionSummary>
             <AccordionDetails>
-              Skadoosh
+              <BetData GameID={index + 1} rowData={row} /> {/* Pass index and row data */}
             </AccordionDetails>
           </Accordion>
         </TableCell>
       </TableRow>
     );
-  
+    
     return tableRow;
   });
-  
-  
-  
-  
-  
   
 
   return useMemo(
@@ -187,15 +182,15 @@ function Table({ columns, rows }) {
 }
 
 // Setting default values for the props of Table
-Table.defaultProps = {
+AccordianTable.defaultProps = {
   columns: [],
   rows: [{}],
 };
 
 // Typechecking props for the Table
-Table.propTypes = {
+AccordianTable.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.object),
   rows: PropTypes.arrayOf(PropTypes.object),
 };
 
-export default Table;
+export default AccordianTable;
