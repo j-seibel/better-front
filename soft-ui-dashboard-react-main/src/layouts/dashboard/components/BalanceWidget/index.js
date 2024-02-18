@@ -16,6 +16,15 @@ import colors from '../../../../assets/theme/base/colors';
 import { fetchBalance, fetchTokenBalance } from 'utils/plaidUtils';
 import { useEffect, useState } from 'react';
 
+const formatCurrency = (value) => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(value);
+};
+
 function BalanceComponent() {
     const [balance, setBalance] = useState(500);
     const [tokenAmount, setTokenAmount] = useState(100);
@@ -27,7 +36,7 @@ function BalanceComponent() {
             });
             await fetchTokenBalance(1).then((tokenBalance) => {
                 setTokenAmount(tokenBalance);
-                setTokensEarnedPerDay(tokenBalance / 100);
+                setTokensEarnedPerDay(balance / 100);
             });
         }
         getBalance();
@@ -46,11 +55,11 @@ function BalanceComponent() {
                   </SoftTypography>
                 </SoftBox>
                 <SoftTypography variant="h3" color={colors.white} fontWeight="bold" gutterBottom>
-                  {`${balance}`} {/* Display the money amount */}
+                  {formatCurrency(balance)} {/* Display the money amount */}
                 </SoftTypography>
                 <SoftBox mb={1}>
                   <SoftTypography variant="h5" color={colors.white}>
-                    {`${tokenAmount} Tokens`} {/* Display the token amount */}
+                    {`${tokenAmount.toFixed()} Tokens`} {/* Display the token amount */}
                   </SoftTypography>
                 </SoftBox>
               </SoftBox>
@@ -74,7 +83,7 @@ function BalanceComponent() {
                 <SoftBox display="flex" alignItems="center">
                   <TokensEarnedIcon sx={{ marginRight: 1, color: colors.white }} />
                   <SoftTypography variant="body2" color={colors.white}>
-                    {`${tokensEarnedPerDay} Tokens Earned/Day`}
+                    {`${tokensEarnedPerDay.toFixed(2)} Tokens Earned/Day`}
                   </SoftTypography>
                 </SoftBox>
               </SoftBox>

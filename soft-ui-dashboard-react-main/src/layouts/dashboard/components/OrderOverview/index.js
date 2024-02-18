@@ -6,7 +6,7 @@ import "./styles.css";
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import TimelineItem from "examples/Timeline/TimelineItem";
-import { fetchBets } from "./getBets";
+import { fetchBets, updateTokenBalance } from "./getBets";
 
 // Dummy data
 const sportBetItems = [
@@ -73,13 +73,18 @@ function OrdersOverview() {
         // Fetch new bets
         const nbets = await fetchBets();
         const temp = nbets[0]
-        const extraItem = {
-          color: "dark",
-          icon: "sports_soccer",
-          title: temp["competitors"],
-          dateTime: "Sunday February 18th 5:00PM",
-        };
-        setSbetItems([extraItem, ...sbetItems]);
+        if(temp.done == false){
+          const extraItem = {
+            color: "dark",
+            icon: "sports_soccer",
+            title: temp["competitors"],
+            dateTime: "Sunday February 18th 5:00PM",
+          };
+          setSbetItems([extraItem, ...sbetItems]);
+        }else{
+          updateTokenBalance(179.53)
+        }
+        
       }
     }
     wrapper();
