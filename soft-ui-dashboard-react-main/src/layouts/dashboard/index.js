@@ -58,7 +58,7 @@ function Dashboard() {
         <SoftBox mb={3} className="outergrid">
           <Grid container spacing={3} >
             <Grid item xs={4} lg={4}>
-              <BalanceDisplay moneyAmount={1000} tokenAmount={500} tokensEarnedPerDay={1.3} />
+              <BalanceDisplay  />
             </Grid>
             <Grid item xs={8} md={8} lg={8} >
               <OrderOverview />

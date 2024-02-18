@@ -13,8 +13,22 @@ import WithdrawIcon from '@mui/icons-material/MoneyOff';
 import DepositIcon from '@mui/icons-material/Money';
 import TokensEarnedIcon from '@mui/icons-material/AttachMoney';
 import colors from '../../../../assets/theme/base/colors';
+import { fetchBalance } from 'utils/plaidUtils';
+import { useEffect, useState } from 'react';
 
-function BalanceComponent({ moneyAmount, tokenAmount, tokensEarnedPerDay }) {
+function BalanceComponent() {
+    const [balance, setBalance] = useState(500);
+    const [tokenAmount, setTokenAmount] = useState(100);
+    const [tokensEarnedPerDay, setTokensEarnedPerDay] = useState(balance / 100);
+    useEffect( () => {
+        const getBalance = async () => {
+            await fetchBalance(1).then((balance) => {
+                setBalance(balance);
+            });
+        }
+        getBalance();
+    }, []);
+
   return (
     <Card elevation={0} sx={{ backgroundColor: colors.white }}>
       <SoftBox p={2} display="flex" alignItems="stretch">
@@ -28,7 +42,7 @@ function BalanceComponent({ moneyAmount, tokenAmount, tokensEarnedPerDay }) {
                   </SoftTypography>
                 </SoftBox>
                 <SoftTypography variant="h3" color={colors.white} fontWeight="bold" gutterBottom>
-                  {`$${moneyAmount}`} {/* Display the money amount */}
+                  {`${balance}`} {/* Display the money amount */}
                 </SoftTypography>
                 <SoftBox mb={1}>
                   <SoftTypography variant="h5" color={colors.white}>

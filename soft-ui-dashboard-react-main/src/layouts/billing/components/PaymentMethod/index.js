@@ -31,6 +31,76 @@ import borders from "assets/theme/base/borders";
 import masterCardLogo from "assets/images/logos/mastercard.png";
 import visaLogo from "assets/images/logos/visa.png";
 
+import React, { useEffect, useState } from 'react';
+import { usePlaidLink } from 'react-plaid-link';
+import PropTypes from 'prop-types';
+
+const PlaidLink = () => {
+  const [linkToken, setLinkToken] = useState(null);
+
+  const generateToken = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/create_link_token', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+          user_id: '1', // Example data
+        }),
+      });
+      const data = await response.json();
+      setLinkToken(data.link_token);
+    } catch (error) {
+      console.error('Error generating link token:', error);
+    }
+  };
+
+  useEffect(() => {
+    console.log('Generating link token...');
+    generateToken();
+  }, []);
+
+  return linkToken ? <Link linkToken={linkToken} /> : null;
+};
+
+const Link = ({ linkToken }) => {
+  const onSuccess = React.useCallback((public_token, metadata) => {
+    // send public_token to server
+    fetch('http://127.0.0.1:5000/exchange_public_token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ public_token, user_id: "1" }), 
+    })
+      .then((response) => {
+        // Handle response ...
+      })
+      .catch((error) => {
+        console.error('Error setting access token:', error);
+      });
+  }, []);
+
+  const config = {
+    token: linkToken,
+    onSuccess,
+  };
+
+  const { open, ready } = usePlaidLink(config);
+
+  return (
+    <button
+  onClick={() => open()}
+  disabled={!ready}
+  style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer', color: 'white' }}
+>
+  Link account
+</button>
+  );
+};
+
+Link.propTypes = {
+  linkToken: PropTypes.string.isRequired,
+};
 
 
 
@@ -45,7 +115,7 @@ function PaymentMethod() {
         </SoftTypography>
         <SoftButton variant="gradient" color="dark">
           <Icon sx={{ fontWeight: "bold" }}>add</Icon>
-          &nbsp;add new card
+          <PlaidLink />
         </SoftButton>
       </SoftBox>
       <SoftBox p={2}>
@@ -64,11 +134,7 @@ function PaymentMethod() {
                 ****&nbsp;&nbsp;****&nbsp;&nbsp;****&nbsp;&nbsp;7852
               </SoftTypography>
               <SoftBox ml="auto" lineHeight={0}>
-                <Tooltip title="Edit Card" placement="top">
-                  <Icon sx={{ cursor: "pointer" }} fontSize="small">
-                    edit
-                  </Icon>
-                </Tooltip>
+                
               </SoftBox>
             </SoftBox>
           </Grid>
@@ -86,11 +152,7 @@ function PaymentMethod() {
                 ****&nbsp;&nbsp;****&nbsp;&nbsp;****&nbsp;&nbsp;5248
               </SoftTypography>
               <SoftBox ml="auto" lineHeight={0}>
-                <Tooltip title="Edit Card" placement="top">
-                  <Icon sx={{ cursor: "pointer" }} fontSize="small">
-                    edit
-                  </Icon>
-                </Tooltip>
+                
               </SoftBox>
             </SoftBox>
           </Grid>
