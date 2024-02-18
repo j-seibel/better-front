@@ -1,8 +1,11 @@
-# Better Bets Backend
-The following is an explanation of the technical architecture of the backend of the Better Bets application. For a comprehensive explanation of the whole project, see # Project Manifest in the Backend's GitHub.
+# Better Bets Frontend
+The following is an explanation of the technical architecture of the backend of the Better Bets application. 
 
 ## Backend Github
 https://github.com/Dante1DC/better-back 
+
+# Project Manifest
+For some, it's a harmless hobby. For others, it destroys their lifes. Sports gambling is one of the highest reported loss sectors in the gambling industry, do to it's accessiblity, ease, and casual nature. And also--it's just fun! But some people need a way to engage in their favorite passtime without risking their incomes, their homes, or their livelihoods. It's a fact; some people struggle to control or manage high-leverage risk like sports gambling, but still want to participate in the community and the activity it surrounds. In comes Better Bets: a platform that allows users to use the interest in their savings accounts to bet on the outcomes of their preferred games. This is the perfect way to allow users to win big, but not lose lots. 
 
 ## Architecture
 ### React
