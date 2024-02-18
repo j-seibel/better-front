@@ -30,7 +30,7 @@ function Transactions() {
     <Card sx={{ height: "100%" }}>
       <SoftBox display="flex" justifyContent="space-between" alignItems="center" pt={3} px={2}>
         <SoftTypography variant="h6" fontWeight="medium" textTransform="capitalize">
-          Your Transaction&apos;s
+          Your Money 
         </SoftTypography>
         <SoftBox display="flex" alignItems="flex-start">
           <SoftBox color="text" mr={0.5} lineHeight={0}>
@@ -39,7 +39,7 @@ function Transactions() {
             </Icon>
           </SoftBox>
           <SoftTypography variant="button" color="text" fontWeight="regular">
-            23 - 30 March 2020
+            14 - 17 February 2024
           </SoftTypography>
         </SoftBox>
       </SoftBox>
@@ -65,16 +65,16 @@ function Transactions() {
           <Transaction
             color="error"
             icon="arrow_downward"
-            name="Netflix"
-            description="27 March 2020, at 12:30 PM"
-            value="- $ 2,500"
+            name="UNL vs Iowa"
+            description="16 February 2024, at 12:30 PM"
+            value="- 200 tokens"
           />
           <Transaction
             color="success"
-            icon="arrow_upward"
-            name="Apple"
-            description="27 March 2020, at 04:30 AM"
-            value="+ $ 2,000"
+            icon="priority_high"
+            name="Interest"
+            description=" 15 February 2024"
+            value="+ 2 Tokens"
           />
         </SoftBox>
         <SoftBox mt={1} mb={2}>
@@ -84,7 +84,7 @@ function Transactions() {
             fontWeight="bold"
             textTransform="uppercase"
           >
-            yesterday
+            Last Week
           </SoftTypography>
         </SoftBox>
         <SoftBox
@@ -97,31 +97,24 @@ function Transactions() {
         >
           <Transaction
             color="success"
-            icon="arrow_upward"
-            name="Stripe"
-            description="26 March 2020, at 13:45 PM"
-            value="+ $ 750"
-          />
-          <Transaction
-            color="success"
-            icon="arrow_upward"
-            name="HubSpot"
-            description="26 March 2020, at 12:30 PM"
-            value="+ $ 1,000"
-          />
-          <Transaction
-            color="success"
-            icon="arrow_upward"
-            name="Creative Tim"
-            description="26 March 2020, at 08:30 AM"
-            value="+ $ 2,500"
-          />
-          <Transaction
-            color="dark"
             icon="priority_high"
-            name="Webflow"
-            description="26 March 2020, at 05:00 AM"
-            value="Pending"
+            name="Interest"
+            description="26 February 2024, at 3:45 PM"
+            value="+ 2 Tokens"
+          />
+          <Transaction
+            color="error"
+            icon="arrow_downward"
+            name="Supernovas vs Thrill"
+            description="15 February 2024, at 2:30PM"
+            value="- 10 tokens"
+          />
+          <Transaction
+            color="success"
+            icon="arrow_upward"
+            name="Super Bowl"
+            description="12 February 2024, at 05:00 PM"
+            value="+ 250 Tokens"
           />
         </SoftBox>
       </SoftBox>
