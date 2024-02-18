@@ -13,7 +13,7 @@ export const fetchBalance = async () => {
 };
 
 export const fetchTokenBalance = async () => {
-    const response = await fetch('http://127.0.0.1:5000/get_balance', {
+    const response = await fetch('http://127.0.0.1:5000/get_point_balance', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -22,6 +22,5 @@ export const fetchTokenBalance = async () => {
     });
 
     const data = await response.json();
-    console.log(data);
-    return data.balance;
+    return data;
 };

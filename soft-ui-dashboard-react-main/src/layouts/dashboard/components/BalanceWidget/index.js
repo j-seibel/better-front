@@ -13,7 +13,7 @@ import WithdrawIcon from '@mui/icons-material/MoneyOff';
 import DepositIcon from '@mui/icons-material/Money';
 import TokensEarnedIcon from '@mui/icons-material/AttachMoney';
 import colors from '../../../../assets/theme/base/colors';
-import { fetchBalance } from 'utils/plaidUtils';
+import { fetchBalance, fetchTokenBalance } from 'utils/plaidUtils';
 import { useEffect, useState } from 'react';
 
 function BalanceComponent() {
@@ -24,6 +24,10 @@ function BalanceComponent() {
         const getBalance = async () => {
             await fetchBalance(1).then((balance) => {
                 setBalance(balance);
+            });
+            await fetchTokenBalance(1).then((tokenBalance) => {
+                setTokenAmount(tokenBalance);
+                setTokensEarnedPerDay(tokenBalance / 100);
             });
         }
         getBalance();
