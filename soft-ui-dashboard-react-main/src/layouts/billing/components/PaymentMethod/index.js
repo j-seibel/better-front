@@ -108,57 +108,74 @@ function PaymentMethod() {
   const { borderWidth, borderColor } = borders;
 
   return (
-    <Card id="delete-account">
-      <SoftBox pt={2} px={2} display="flex" justifyContent="space-between" alignItems="center">
-        <SoftTypography variant="h6" fontWeight="medium">
-          Payment Method
-        </SoftTypography>
-        <SoftButton variant="gradient" color="dark">
+    <Card>
+      <SoftBox
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="100%"
+        width="100%"
+        p={2}
+      >
+        <SoftButton variant="gradient" color="dark" sx={{ width: '100%' }}>
           <Icon sx={{ fontWeight: "bold" }}>add</Icon>
           <PlaidLink />
         </SoftButton>
       </SoftBox>
-      <SoftBox p={2}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
-            <SoftBox
-              border={`${borderWidth[1]} solid ${borderColor}`}
-              borderRadius="lg"
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              p={3}
-            >
-              <SoftBox component="img" src={masterCardLogo} alt="master card" width="10%" mr={2} />
-              <SoftTypography variant="h6" fontWeight="medium">
-                ****&nbsp;&nbsp;****&nbsp;&nbsp;****&nbsp;&nbsp;7852
-              </SoftTypography>
-              <SoftBox ml="auto" lineHeight={0}>
-                
-              </SoftBox>
-            </SoftBox>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <SoftBox
-              border={`${borderWidth[1]} solid ${borderColor}`}
-              borderRadius="lg"
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              p={3}
-            >
-              <SoftBox component="img" src={visaLogo} alt="master card" width="10%" mr={2} />
-              <SoftTypography variant="h6" fontWeight="medium">
-                ****&nbsp;&nbsp;****&nbsp;&nbsp;****&nbsp;&nbsp;5248
-              </SoftTypography>
-              <SoftBox ml="auto" lineHeight={0}>
-                
-              </SoftBox>
-            </SoftBox>
-          </Grid>
-        </Grid>
-      </SoftBox>
     </Card>
+  
+
+    // <Card id="delete-account">
+    //   <SoftBox pt={2} px={2} display="flex" justifyContent="space-between" alignItems="center">
+    //     <SoftTypography variant="h6" fontWeight="medium">
+    //       Payment Method
+    //     </SoftTypography>
+    //     <SoftButton variant="gradient" color="dark">
+    //       <Icon sx={{ fontWeight: "bold" }}>add</Icon>
+    //       <PlaidLink />
+    //     </SoftButton>
+    //   </SoftBox>
+    //   <SoftBox p={2}>
+    //     <Grid container spacing={3}>
+    //       <Grid item xs={12} md={6}>
+    //         <SoftBox
+    //           border={`${borderWidth[1]} solid ${borderColor}`}
+    //           borderRadius="lg"
+    //           display="flex"
+    //           justifyContent="space-between"
+    //           alignItems="center"
+    //           p={3}
+    //         >
+    //           <SoftBox component="img" src={masterCardLogo} alt="master card" width="10%" mr={2} />
+    //           <SoftTypography variant="h6" fontWeight="medium">
+    //             ****&nbsp;&nbsp;****&nbsp;&nbsp;****&nbsp;&nbsp;7852
+    //           </SoftTypography>
+    //           <SoftBox ml="auto" lineHeight={0}>
+                
+    //           </SoftBox>
+    //         </SoftBox>
+    //       </Grid>
+    //       <Grid item xs={12} md={6}>
+    //         <SoftBox
+    //           border={`${borderWidth[1]} solid ${borderColor}`}
+    //           borderRadius="lg"
+    //           display="flex"
+    //           justifyContent="space-between"
+    //           alignItems="center"
+    //           p={3}
+    //         >
+    //           <SoftBox component="img" src={visaLogo} alt="master card" width="10%" mr={2} />
+    //           <SoftTypography variant="h6" fontWeight="medium">
+    //             ****&nbsp;&nbsp;****&nbsp;&nbsp;****&nbsp;&nbsp;5248
+    //           </SoftTypography>
+    //           <SoftBox ml="auto" lineHeight={0}>
+                
+    //           </SoftBox>
+    //         </SoftBox>
+    //       </Grid>
+    //     </Grid>
+    //   </SoftBox>
+    // </Card>
   );
 }
 
