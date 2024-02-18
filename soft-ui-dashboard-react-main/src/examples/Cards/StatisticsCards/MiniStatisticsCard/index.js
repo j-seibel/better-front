@@ -28,7 +28,7 @@ import SoftTypography from "components/SoftTypography";
 function MiniStatisticsCard({ bgColor, title, count, percentage, icon, direction }) {
   return (
     <Card>
-      <SoftBox bgColor={bgColor} variant="gradient">
+      <SoftBox bgColor={bgColor} variant="gradient" xs={4}>
         <SoftBox p={2}>
           <Grid container alignItems="center">
             {direction === "left" ? (

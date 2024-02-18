@@ -1,0 +1,4 @@
+.outercard{
+    overflow: auto !important;
+    max-height: 350px;
+}
