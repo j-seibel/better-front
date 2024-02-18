@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Soft UI Dashboard React - v4.0.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // @mui material components
 import Card from "@mui/material/Card";
 
@@ -23,14 +8,51 @@ import SoftTypography from "components/SoftTypography";
 // Soft UI Dashboard React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Footer from "examples/Footer";
 import Table from "examples/AccordianTable/index";
 
+import { fetchSportOdds, fetchSportsBet } from "./data/getGameData";
+
 // Data
-import authorsTableData from "layouts/tables/data/authorsTableData";
+import authorsTableData from "./data/authorsTableData";
+import { useEffect, useState } from "react";
 
 function Tables() {
-  const { columns, rows } = authorsTableData;
+  const [data, setData] = useState(null); // Initialize data as null to indicate loading state
+  const [tableData, setTableData] = useState(null); // Initialize tableData as null
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await fetchSportsBet();
+        const odds = await fetchSportOdds(1);
+        console.log(odds);
+        setData(res);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (data !== null) {
+      console.log(data)
+      const { columns, rows } = authorsTableData(data);
+      setTableData({ columns, rows });
+    }
+  }, [data]);
+
+  if (data === null) {
+    return (
+      <DashboardLayout>
+        <DashboardNavbar />
+        <SoftBox py={3}>
+          <SoftTypography>Loading...</SoftTypography>
+        </SoftBox>
+      </DashboardLayout>
+    );
+  }
 
   return (
     <DashboardLayout>
@@ -51,12 +73,11 @@ function Tables() {
                 },
               }}
             >
-              <Table columns={columns} rows={rows} />
+              {tableData && <Table columns={tableData.columns} rows={tableData.rows} />}
             </SoftBox>
           </Card>
         </SoftBox>
       </SoftBox>
-      <Footer />
     </DashboardLayout>
   );
 }

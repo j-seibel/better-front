@@ -1,48 +1,6 @@
-/* eslint-disable react/prop-types */
-// Soft UI Dashboard React components
-import SoftBox from "components/SoftBox";
-import SoftTypography from "components/SoftTypography";
-import SoftAvatar from "components/SoftAvatar";
-import SoftBadge from "components/SoftBadge";
-
-// Images
-import team2 from "assets/images/team-2.jpg";
-import team3 from "assets/images/team-3.jpg";
-import team4 from "assets/images/team-4.jpg";
-
-function Author({ image, name, email }) {
-  return (
-    <SoftBox display="flex" alignItems="center" px={1} py={0.5}>
-      <SoftBox mr={2}>
-        <SoftAvatar src={image} alt={name} size="sm" variant="rounded" />
-      </SoftBox>
-      <SoftBox display="flex" flexDirection="column">
-        <SoftTypography variant="button" fontWeight="medium">
-          {name}
-        </SoftTypography>
-        <SoftTypography variant="caption" color="secondary">
-          {email}
-        </SoftTypography>
-      </SoftBox>
-    </SoftBox>
-  );
-}
-
-function Function({ job, org }) {
-  return (
-    <SoftBox display="flex" flexDirection="column">
-      <SoftTypography variant="caption" fontWeight="medium" color="text">
-        {job}
-      </SoftTypography>
-      <SoftTypography variant="caption" color="secondary">
-        {org}
-      </SoftTypography>
-    </SoftBox>
-  );
-}
-
-const authorsTableData = {
-  columns: [
+function authorsTableData(data){
+  data = data[0][0]
+  var toReturn = {columns: [
     { name: "league", align: "left" },
     { name: "competitors", align: "center" },
     { name: "date", align: "center" },
@@ -50,37 +8,23 @@ const authorsTableData = {
   ],
 
   rows: [
-    {
-      league: "NBA",
-      competitors: "Lakers vs Knicks",
-      date: "March 15, 2024",
-      "Made bet": "No"
-    },
-    {
-      league: "MLS",
-      competitors: "Inter Miami vs. LA Galaxy",
-      date: "April 2, 2024",
-      "Made bet": "Yes"
-    },
-    {
-      league: "USTA",
-      competitors: "S. Williams vs. N. Osaka",
-      date: "May 10, 2024",
-      "Made bet": "Yes"
-    },
-    {
-      league: "NFL",
-      competitors: "Packers vs Cowboys",
-      date: "September 8, 2024",
-      "Made bet": "No"
-    },
-    {
-      league: "MLB",
-      competitors: "Yankees vs. Red Sox",
-      date: "September 20, 2024",
-      "Made bet": "No"
-    },
   ],
+};
+
+for(let i = 0; i < data.length; i++){
+  const isoDateString = data[i]["commence_time"]
+  const formattedDate = new Date(isoDateString).toLocaleString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }) + ' ' + new Date(isoDateString).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+  toReturn["rows"].push(
+    {
+      league: data[i]['sport_title'],
+      competitors: data[i]['home_team'] + " vs. " + data[i]["away_team"],
+      date: formattedDate,
+    }
+  )
+}
+
+return toReturn
+
 };
 
 export default authorsTableData;

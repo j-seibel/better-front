@@ -1,76 +1,46 @@
-/**
-=========================================================
-* Soft UI Dashboard React - v4.0.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// @mui material components
+import { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import "./styles.css";
-
-// Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
-
-// Soft UI Dashboard React examples
 import TimelineItem from "examples/Timeline/TimelineItem";
+import { fetchBets } from "./getBets";
 
+// Dummy data
 const sportBetItems = [
   {
     color: "success",
-    icon: "notifications",
-    title: "Bet on Football Match: Win $100",
-    dateTime: "22 DEC 7:20 PM",
+    icon: "sports_basketball", // Relevant icon for basketball
+    title: "Los Angeles Lakers vs Boston Celtics",
+    dateTime: "Sunday February 18th 7:20PM",
   },
   {
     color: "error",
-    icon: "inventory_2",
-    title: "Basketball Game: Lost bet, $50",
-    dateTime: "21 DEC 11 PM",
+    icon: "sports_baseball", // Relevant icon for baseball
+    title: "New York Yankees vs Chicago Cubs",
+    dateTime: "Saturday February 17th 11PM",
   },
   {
     color: "info",
-    icon: "shopping_cart",
-    title: "Tennis Tournament: Bet on Player A to Win",
-    dateTime: "21 DEC 9:34 PM",
-  },
-  {
-    color: "warning",
-    icon: "payment",
-    title: "New card added for bet #4395133",
-    dateTime: "20 DEC 2:20 AM",
+    icon: "sports_basketball", // Relevant icon for basketball
+    title: "Golden State Warriors vs Houston Rockets",
+    dateTime: "Saturday February 17th 9:34PM",
   },
   {
     color: "primary",
-    icon: "vpn_key",
-    title: "Horse Racing: Bet on Horse X to Place",
-    dateTime: "18 DEC 4:54 AM",
-  },
-  {
-    color: "dark",
-    icon: "paid",
-    title: "New bet #9583120",
-    dateTime: "17 DEC",
+    icon: "sports_baseball", // Relevant icon for baseball
+    title: "Boston Red Sox vs New York Yankees",
+    dateTime: "Wednesday February 14th 4:54AM",
   },
 ];
 
 
-
-const SportBetTimeline = ({ betItems }) => {
+const SportBetTimeline = ({ sbetItems }) => {
   return (
     <>
-      {betItems.map((item, index) => (
+      {sbetItems.map((item, index) => (
         <TimelineItem
           key={index}
           color={item.color}
@@ -84,7 +54,7 @@ const SportBetTimeline = ({ betItems }) => {
 };
 
 SportBetTimeline.propTypes = {
-  betItems: PropTypes.arrayOf(
+  sbetItems: PropTypes.arrayOf(
     PropTypes.shape({
       color: PropTypes.string.isRequired,
       icon: PropTypes.string.isRequired,
@@ -95,29 +65,58 @@ SportBetTimeline.propTypes = {
 };
 
 function OrdersOverview() {
+  const [sbetItems, setSbetItems] = useState(sportBetItems);
+
+  useEffect(() => {
+    async function wrapper() {
+      if (sbetItems.length === 4) {
+        // Fetch new bets
+        const nbets = await fetchBets();
+        const temp = nbets[0]
+        const extraItem = {
+          color: "dark",
+          icon: "sports_soccer",
+          title: temp["competitors"],
+          dateTime: "Sunday February 18th 5:00PM",
+        };
+        setSbetItems([extraItem, ...sbetItems]);
+      }
+    }
+    wrapper();
+  }, [sbetItems]);
+
   return (
-    <Card className="h-100, outercard" >
+    <Card className="h-100, outercard">
       <SoftBox pt={3} px={3}>
         <SoftTypography variant="h6" fontWeight="medium">
           Current Bets
         </SoftTypography>
         <SoftBox mt={1} mb={2}>
           <SoftTypography variant="button" color="text" fontWeight="regular">
-            <SoftTypography display="inline" variant="body2" verticalAlign="middle">
-              <Icon sx={{ fontWeight: "bold", color: ({ palette: { success } }) => success.main }}>
+            <SoftTypography
+              display="inline"
+              variant="body2"
+              verticalAlign="middle"
+            >
+              <Icon
+                sx={{
+                  fontWeight: "bold",
+                  color: ({ palette: { success } }) => success.main,
+                }}
+              >
                 check
               </Icon>
             </SoftTypography>
             &nbsp;
             <SoftTypography variant="button" color="text" fontWeight="medium">
-              {sportBetItems.length}
+              {sbetItems.length}
             </SoftTypography>{" "}
             active
           </SoftTypography>
         </SoftBox>
       </SoftBox>
       <SoftBox p={2}>
-        <SportBetTimeline betItems={sportBetItems}></SportBetTimeline>
+        <SportBetTimeline sbetItems={sbetItems}></SportBetTimeline>
       </SoftBox>
     </Card>
   );
